@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+.env/
+.envrc/
+.venv/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files
+*.csv
+*.tsv
+*.json
+*.jsonl
+*.parquet
+*.pkl
+*.pickle
+
+# Model checkpoints / outputs
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+
+# HuggingFace / Trainer outputs
+results/
+runs/
+logs/
+output/
+checkpoints/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Temporary / cache
+.cache/
+tmp/
+temp/
+
+# Misc
+*.zip
+*.tar
+*.gz
