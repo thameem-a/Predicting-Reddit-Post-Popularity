@@ -93,6 +93,8 @@ Primary metric is RMSE on `log(1 + score)`.
 | BERT (title + metadata) | 1.3891 | ~1.37 |
 | BERT (content-aware) | **1.3717** | **~1.35** |
 
+**In plain terms:** The best model's typical prediction is within ~3.9× of the true upvote count; the metadata-only Random Forest is off by ~4.3×, and a mean-prediction baseline by ~7×.
+
 **Key findings:**
 
 - The title-only BERT model reduces RMSE by 5.3% compared to Random Forest, showing that language understanding adds meaningful signal beyond metadata.
