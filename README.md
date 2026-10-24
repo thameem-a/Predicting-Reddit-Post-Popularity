@@ -16,7 +16,7 @@ Upvote counts follow a heavily right-skewed distribution, with over 53% of posts
 
 **Source:** Reddit Pushshift corpus (`RS_2026-01.zst` via Academic Torrents), processed with a custom streaming pipeline.
 
-**Scale:** 450,000 posts total, split into train (315,000), validation (67,500), and test (67,500).
+**Scale:** 450,000 posts total, split into train (315,000), validation (67,500), and test (67,500). The reported results use the `medium` 50% subset: 157,133 train, 33,809 validation, 33,809 test (about 225k posts).
 
 Sampling is stratified by score bin to prevent low-score posts from dominating:
 
@@ -83,22 +83,22 @@ Both BERT models share the same `HybridModel` architecture:
 
 ## Results
 
-Primary metric is RMSE on `log(1 + score)`.
+Primary metric is RMSE on `log(1 + score)`, on the `medium` split. The test set was scored once, after all choices were made on validation.
 
 | Model | Val RMSE | Test RMSE |
 |-------|----------|-----------|
-| Dummy Regressor | 1.9398 | ~1.93 |
-| Ridge Regression | 1.6918 | ~1.68 |
-| Random Forest | 1.4650 | ~1.46 |
-| BERT (title + metadata) | 1.3891 | ~1.37 |
-| BERT (content-aware) | **1.3717** | **~1.35** |
+| Dummy Regressor | 1.9398 | 1.9398 |
+| Ridge Regression | 1.6918 | 1.6849 |
+| Random Forest | 1.4650 | 1.4613 |
+| BERT (title + metadata) | 1.3891 | 1.3761 |
+| BERT (content-aware) | **1.3717** | **1.3599** |
 
 **In plain terms:** The best model's typical prediction is within ~3.9× of the true upvote count; the metadata-only Random Forest is off by ~4.3×, and a mean-prediction baseline by ~7×.
 
 **Key findings:**
 
-- The title-only BERT model reduces RMSE by 5.3% compared to Random Forest, showing that language understanding adds meaningful signal beyond metadata.
-- The content-aware model reduces RMSE by a further ~0.02, confirming that body text helps but modestly (the gain is concentrated in the 47% of posts that have body content).
+- The title-only BERT model reduces test RMSE by 5.8% compared to Random Forest (1.4613 to 1.3761), showing that language understanding adds meaningful signal beyond metadata.
+- The content-aware model reduces test RMSE by a further 0.0162 (1.2%), for a 6.9% total reduction versus Random Forest, confirming that body text helps but modestly (the gain is concentrated in the 47% of posts that have body content).
 - Both BERT models generalize cleanly to the held-out test set, with no signs of overfitting.
 - Both models underestimate highly viral posts (log_score > 8), which is expected given the long tail and external virality factors the model cannot observe.
 
